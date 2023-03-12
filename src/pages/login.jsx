@@ -16,7 +16,7 @@ import {
 function LoginForm() {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
-  const [passwordInvalid, setPasswordInvalid] = React.useState(false);
+
   const [invalidCreds, setinvalidCreds] = React.useState(false);
   const [enabled, setEnabled] = React.useState(false);
   const navigate = useNavigate();
@@ -33,19 +33,17 @@ function LoginForm() {
       }),
     });
     // validate password and set passwordInvalid state accordingly
-    if (password.length < 4) {
-      setPasswordInvalid(true);
-    } else {
-      setPasswordInvalid(false);
-    }
+
     const response = await x.json();
     sessionStorage.setItem("user_id", response.id);
     sessionStorage.setItem("name", response.name);
     sessionStorage.setItem("token", response.token);
-    console.log(response);
-    if (response.token.length > 0) {
+    sessionStorage.setItem("role", response.role);
+    console.log("response", response);
+    if (response.token) {
       navigate("/dashboard", { replace: true });
-    } else {
+    }
+    if (response.message) {
       setinvalidCreds(true);
     }
   }
@@ -75,17 +73,17 @@ function LoginForm() {
 
         <StyledLabel>Email</StyledLabel>
         <StyledInput
-          type="text"
+          type="email"
           value={email}
           onChange={(e) => usernameEntered(e)}
         />
-        <StyledLabel invalid={passwordInvalid}>Password</StyledLabel>
+        <StyledLabel >Password</StyledLabel>
         <StyledInput
           type="password"
           value={password}
           onChange={(e) => passwordEntered(e)}
         />
-        {passwordInvalid && <StyledAlert>Password is invalid.</StyledAlert>}
+       
         {invalidCreds && (
           <StyledAlert>incorrect email or password.</StyledAlert>
         )}

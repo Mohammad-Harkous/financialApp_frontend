@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import img from "../assets/back.svg"
+import { keyframes } from 'styled-components';
+
 
 export const StyledForm = styled.form`
   padding: 20px;
@@ -7,6 +9,7 @@ export const StyledForm = styled.form`
   display: flex;
   flex-direction: column;
 `;
+
 
 export const StyledLabel = styled.label`
 color:white;
@@ -22,13 +25,26 @@ color:white;
   }
 `;
 
+const goUp = keyframes`   
+  0%{
+    margin-top:30px;
+    opacity:0.2;
+  }
+
+  50%{
+    opacity:0.6;
+  }
+  100% {
+    opacity:1;
+  }
+`
+
 export const StyledInput = styled.input`
 font-size:1.5em;
   max-width: 20em;
   height:3vh;
   padding: 10px;
   color:white;
-  
   border: 1px solid #ccc;
   border-radius: 5px;
   background-color:transparent;
@@ -36,14 +52,13 @@ font-size:1.5em;
   outline:none;
   border: 2px white solid;
   @media (max-width: 768px) {
-     ;
+     
     margin-left:5%;
     margin-right:5%;
   }
 `;
 
-export const StyledButton = styled.button
-`
+export const StyledButton = styled.button`
 display:flex;
 align-items:center;
 justify-content:center;
@@ -77,8 +92,9 @@ export const StyledAlert = styled.div`
   padding: 10px;
   background-color: #f44336;
   color: white;
-  margin-top: 10px;
   border-radius: 5px;
+  animation: ${goUp} 0.3s ease;
+  margin-top:10px;
 `;
 
 export const Body = styled.div`

@@ -1,8 +1,8 @@
 import React from 'react'
-
+import SideBar from '../components/SideBar.jsx'
 const Dashboard = () => {
   return (
-    <div>Dashboard</div>
+  <></>
   )
 }
 
