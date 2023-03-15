@@ -1,14 +1,19 @@
 import BasicModal from '../components/BasicModal';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, TablePagination } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
-import EditIcon from '@mui/icons-material/Edit';
 import IconButton from '@mui/material/IconButton';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import TopBar from '../components/TopBar';
 import Box from '@mui/material/Box';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
+const styleBox = {
+  ml:40, 
+  mr:4
+};
 
 
 function Users() {
@@ -41,22 +46,55 @@ function Users() {
   };
 
 
-  function onEdit(){}
+  const notifySucess = () => {
+   
+    toast.success('User Successfully Deleted!', {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      });
+  }
+
+
+  const notifyError = () => {
+   
+    toast.error('User did not deleted', {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      });
+
+}
+
+ 
 
   const onDelete = async (id) =>{
 
      try{
         await axios.delete(`http://127.0.0.1:8000/api/users/${id}`)
         console.log(`User ${id} has been deleted`);
+        notifySucess();
         fetchUsers();
     }catch (error) {
+      notifyError();
       console.error(`Error deleting User${id}: ${error}`);
+      
     }
 
   }
 
   return (
-    <Box sx={{ml:40, mt:3}}>
+    <Box sx={styleBox}>
       <TopBar />
       <Paper variant="outlined" >
       <BasicModal />
@@ -79,9 +117,6 @@ function Users() {
               <TableCell>{user.email}</TableCell>
               
               <TableCell>
-                <IconButton onClick={() => onEdit(user.id)}>
-                  <EditIcon />
-                </IconButton>
                 <IconButton onClick={() => onDelete(user.id)}>
                   <DeleteIcon />
                 </IconButton>
@@ -96,11 +131,12 @@ function Users() {
         count={data.length}
         rowsPerPage={rowsPerPage}
         page={page}
-        onChangePage={handleChangePage}
-        onChangeRowsPerPage={handleChangeRowsPerPage}
+        onPageChange={handleChangePage}
+        onPageChangeRowsPerPage={handleChangeRowsPerPage}
         sx={{mr:141}}
       />
     </TableContainer>
+    <ToastContainer />
     </Box>
   );
  
