@@ -1,8 +1,11 @@
 import { NavLink } from "react-router-dom";
 import React from "react";
 import styled from "styled-components";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import {Body} from "../components/logincomponents.js";
 
-import {Body} from "../components/logincomponents.js"
+
 
 let Text = styled.h1`
 color: white;
@@ -36,6 +39,8 @@ flex-direction: column;
 
 export default  function NotLoggedin() {
 
+
+
 return(
     <Body>
     <Container>
@@ -44,6 +49,7 @@ return(
     <Link to="/">Back To Login</Link>
     </Container>
     </Body>
+
 )
 
 

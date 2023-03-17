@@ -8,26 +8,33 @@ import Transactions from "./pages/Transactions";
 import Users from "./pages/Users";
 import SidebarLayout from "./components/SidebarLayout.jsx";
 import NotLoggedin from "./pages/notLoggedin.jsx";
+import { useState, useEffect } from "react";
+
 
 function App() {
- let auth = sessionStorage.getItem('token')
+//  let auth = sessionStorage.getItem('token')
+const [token,setToken]=useState(null)
+
+useEffect(()=>{
+  const checkToken = sessionStorage.getItem("token");
+  setToken(checkToken);
+  
+  },[])
   return (
     <>
       <BrowserRouter>
+      
         <Routes>
         
-          <Route element={auth?<SidebarLayout />:<NotLoggedin/>}>
-            <Route   path="/transactions" element={Transactions} />
+        <Route element={token?<SidebarLayout />:<NotLoggedin/>}>
+        <Route   path="/transactions" element={Transactions} />
 
             <Route path="/dashboard" element={<Dashboard/> } />
             <Route path="/reports" element={Reports} />
             <Route path="/users" element={Users} />
           </Route>
-          
 
-          
-
-          <Route path="/" exact element={<LoginForm/>} />
+          <Route path="/" exact element={<LoginForm setToken={setToken}/>} />
         </Routes>
       </BrowserRouter>
     </>

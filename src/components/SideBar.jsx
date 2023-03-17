@@ -118,7 +118,7 @@ ${props => props.$style ?? {}}
 `
 function sideBar() {
   let user = sessionStorage.getItem("name");
-  console.log(user);
+ ;
   function logout() {
     sessionStorage.clear();
   }
