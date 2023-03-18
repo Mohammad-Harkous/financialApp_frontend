@@ -4,8 +4,8 @@ import "./App.css";
 import Dashboard from "./pages/Dashboard.jsx";
 import LoginForm from "./pages/login.jsx";
 import Reports from "./pages/Reports";
-import Transactions from "./pages/Transactions";
-import Users from "./pages/Users";
+// import Transactions from "./pages/Transactions";
+// import Users from "./pages/Users";
 import SidebarLayout from "./components/SidebarLayout.jsx";
 import NotLoggedin from "./pages/notLoggedin.jsx";
 import { useState, useEffect } from "react";
@@ -27,11 +27,11 @@ useEffect(()=>{
         <Routes>
         
         <Route element={token?<SidebarLayout />:<NotLoggedin/>}>
-        <Route   path="/transactions" element={Transactions} />
+        <Route   path="/transactions"  />
 
             <Route path="/dashboard" element={<Dashboard/> } />
             <Route path="/reports" element={Reports} />
-            <Route path="/users" element={Users} />
+            <Route path="/users"  />
           </Route>
 
           <Route path="/" exact element={<LoginForm setToken={setToken}/>} />
