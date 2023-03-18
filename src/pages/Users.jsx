@@ -32,13 +32,14 @@ function Users() {
   }
 
 
-  useEffect(() => {
-    fetchUsers();
-  }, []);
+
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
+  useEffect(() => {
+    fetchUsers();
+  }, []);
 
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(parseInt(event.target.value, 10));
