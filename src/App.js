@@ -5,7 +5,7 @@ import Dashboard from "./pages/Dashboard.jsx";
 import LoginForm from "./pages/login.jsx";
 import Reports from "./pages/Reports";
 // import Transactions from "./pages/Transactions";
-// import Users from "./pages/Users";
+import Users from "./pages/Users.jsx";
 import SidebarLayout from "./components/SidebarLayout.jsx";
 import NotLoggedin from "./pages/notLoggedin.jsx";
 import { useState, useEffect } from "react";
@@ -31,7 +31,7 @@ useEffect(()=>{
 
             <Route path="/dashboard" element={<Dashboard/> } />
             <Route path="/reports" element={Reports} />
-            <Route path="/users"  />
+            <Route path="/users"  element={<Users/>}/>
           </Route>
 
           <Route path="/" exact element={<LoginForm setToken={setToken}/>} />
