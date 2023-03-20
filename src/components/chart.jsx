@@ -1,18 +1,24 @@
 import React from "react";
 import ReactApexChart from "react-apexcharts"
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
 function Chart (){
-  var x = 12
+  
+
+  
+   
+  
+  
   
     const[state,setState]=useState({series: [{
       name: 'Income',
-      data: [44, 55, 57, 56, 61, 58, 63, 600, 66,12,13,x]
+      data: []
     }, {
       name: 'Total',
-      data: [76, 85, 101, 98, 87, 105, 91, 114, 94,2000]
+      data: []
     }, {
       name: 'Expense',
-      data: [35, 41, 36, 26, 45, 48, 52, 53, 41]
+      data: []
     }],
     options: {
       chart: {
@@ -60,6 +66,91 @@ function Chart (){
       }
     },
   });
+  useEffect(() => {
+    var token = sessionStorage.getItem("token");
+    const income=[]
+    const expense=[]
+    const total=[]
+    axios.get("http://127.0.0.1:8000/api/report/2023", {
+          headers: { Authorization: `Bearer ${token}` },
+        }).then(response=>{
+          income.push(response.data[0].income)
+          expense.push(response.data[0].expense)
+          total.push(response.data[0].total)
+          console.log(income[0])
+          console.log(expense)
+          console.log(total)
+          setState({series: [{
+            name: 'Income',
+            data: income[0],
+          }, {
+            name: 'Total',
+            data: total[0],
+          }, {
+            name: 'Expense',
+            data: expense[0],
+          }],
+          options: {
+            chart: {
+              type: 'bar',
+              height: 350
+            },
+            plotOptions: {
+              bar: {
+                horizontal: false,
+                columnWidth: '60%',
+                endingShape: 'rounded'
+                
+                
+              },
+            },
+            dataLabels: {
+              enabled: false,
+              
+              
+            },
+            
+            stroke: {
+              show: true,
+              width: 1,
+              colors: ['gray']
+            },
+            xaxis: {
+              categories: ['jan','Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct','nov','dec',],
+            },
+            yaxis: {
+              title: {
+                text: '$ (thousands)'
+              }
+            },
+            fill: {
+              opacity: 1,
+              
+            },
+            tooltip: {
+              y: {
+                formatter: function (val) {
+                  return "$ " + val + " thousands"
+                }
+              }
+            }
+          },
+          
+          })
+          })
+          
+     
+       
+
+
+
+      },
+      
+    []);
+    
+
+
+ 
 
   return (
         

@@ -131,7 +131,7 @@ border-radius: 1em;
 display: flex;
 align-items: center;
 /* background: radial-gradient(circle at 10% 20%, rgb(48,77,175) 0%, rgb(39, 170, 255) 90%); */
-background: linear-gradient(95.5deg, rgb(72, 135, 224) -20.1%, rgb(48,77,175) 71.5%);
+background-color:rgb(48,77,175);
 justify-content: space-between;
 box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
 

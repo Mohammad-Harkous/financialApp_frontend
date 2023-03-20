@@ -5,7 +5,7 @@ import { useState } from "react";
 
 function Circle (props){
   let per=props.percent
-  console.log(per)
+  
   const[state,setState]=useState({
        
     
