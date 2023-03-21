@@ -1,32 +1,74 @@
 import React, { useState } from "react";
 import {
-  TextField,
-  IconButton,
-  InputAdornment,
   Button,
   Box,
+  TextField,
+  InputLabel,
+  Select,
+  MenuItem,
 } from "@mui/material";
-import { Visibility, VisibilityOff } from "@mui/icons-material";
+import InputAdornment from "@mui/material/InputAdornment";
+import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import axios from "axios";
 
 function MyForm() {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
-
-  const handleClickShowPassword = () => {
-    setShowPassword(!showPassword);
-  };
-
-  const handleMouseDownPassword = (event) => {
-    event.preventDefault();
-  };
+  const [status, setStatus] = useState("");
+  const [title, setTitle] = useState("");
+  const [amount, setAmount] = useState("");
+  const [start_date, setStart_date] = useState("");
+  const [end_date, setEnd_date] = useState("");
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log("Submitting form...", { name, email, password });
-  };
+    // Reset form fields
+    setStatus("");
+    setTitle("");
+    setAmount("");
+    setStart_date(null);
+    setEnd_date(null);
 
+    // Reset form state (optional)
+    event.target.reset();
+
+    console.log("Submitting form...", {
+      status,
+      title,
+      amount,
+      start_date,
+      end_date,
+    });
+
+    console.log("sra ", start_date.$d);
+
+    // Convert start_date and end_date to JSON format
+
+    const body = {
+      status,
+      title,
+      amount,
+      start_date: start_date ? start_date.$d.toJSON() : null,
+      end_date: end_date ? end_date.$d.toJSON() : null,
+    };
+
+    // Make POST request using Axios
+
+    axios
+      .post("http://127.0.0.1:8000/api/goal", body)
+      .then((response) => {
+        console.log("rrr ", response);
+
+        // console.log(response.data);
+
+        // Do something with response data
+      })
+      .catch((error) => {
+        console.log(error);
+        // Handle error
+      });
+  };
   return (
     <Box
       sx={{
@@ -34,66 +76,121 @@ function MyForm() {
         justifyContent: "center",
         alignItems: "center",
         height: "100vh",
-        backgroundColor: "#264ECA",
+        bgcolor: "#304DAF",
       }}>
+      {/* Parent box */}
       <Box
         sx={{
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          backfaceVisibility: "10",
-          backgroundColor: "white",
-          zIndex: "modal",
+          backfaceVisibility: "1ss0",
           p: 3,
-          borderRadius: 5,
+          borderRadius: 2,
+          backgroundColor: "white",
+          minWidth: "300px",
+          maxWidth: "600px",
         }}>
         <form onSubmit={handleSubmit}>
+          {/* Goal input */}
+          <InputLabel
+            htmlFor="outlined-adornment-amount"
+            sx={{ fontWeight: "bold" }}>
+            Goal
+          </InputLabel>
           <TextField
             required
-            label="Name"
-            value={name}
-            onChange={(event) => setName(event.target.value)}
             fullWidth
-            margin="normal"
-          />
-          <TextField
-            required
-            label="Email"
-            type="email"
-            value={email}
-            onChange={(event) => setEmail(event.target.value)}
-            fullWidth
-            margin="normal"
-          />
-          <TextField
-            required
-            label="Password"
-            type={showPassword ? "text" : "password"}
-            value={password}
-            onChange={(event) => setPassword(event.target.value)}
-            fullWidth
-            margin="normal"
+            margin="dense"
+            value={status}
+            onChange={(event) => setStatus(event.target.value)}
             InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton
-                    onClick={handleClickShowPassword}
-                    onMouseDown={handleMouseDownPassword}>
-                    {showPassword ? <VisibilityOff /> : <Visibility />}
-                  </IconButton>
-                </InputAdornment>
+              endAdornment: <InputAdornment position="end">$</InputAdornment>,
+            }}
+          />
+
+          {/* Type input */}
+          <InputLabel id="demo-simple-select-label" sx={{ fontWeight: "bold" }}>
+            Type
+          </InputLabel>
+          <Select
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            value={title}
+            onChange={(event) => setTitle(event.target.value)}
+            fullWidth
+            margin="dense">
+            <MenuItem value={"expenses"}>Expenses</MenuItem>
+            <MenuItem value={"income"}>Income</MenuItem>
+          </Select>
+
+          {/* Amount input */}
+          <InputLabel
+            htmlFor="outlined-adornment-amount"
+            sx={{ fontWeight: "bold" }}>
+            Amount
+          </InputLabel>
+          <TextField
+            required
+            fullWidth
+            margin="dense"
+            value={amount}
+            onChange={(event) => setAmount(event.target.value)}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">$</InputAdornment>
               ),
             }}
           />
-          <Box sx={{ display: "flex", justifyContent: "center" }}>
-            <Button
-              type="submit"
-              variant="outlined"
-              color="primary"
-              size="large">
-              Submit
-            </Button>
-          </Box>
+
+          {/* Date input */}
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <InputLabel
+              htmlFor="outlined-adornment-amount"
+              sx={{ fontWeight: "bold" }}>
+              Start Date
+            </InputLabel>
+            <DemoContainer components={["DatePicker"]}>
+              <DatePicker
+                label="Start Date"
+                value={start_date}
+                onChange={(newValue) => {
+                  setStart_date(newValue);
+                }}
+              />
+            </DemoContainer>
+          </LocalizationProvider>
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <InputLabel
+              htmlFor="outlined-adornment-amount"
+              sx={{ fontWeight: "bold" }}>
+              End Date
+            </InputLabel>
+            <DemoContainer components={["DatePicker"]}>
+              <DatePicker
+                label="End Date"
+                value={end_date}
+                onChange={(newValue) => {
+                  setEnd_date(newValue);
+                }}
+              />
+            </DemoContainer>
+          </LocalizationProvider>
+
+          {/* Submit button */}
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            size="large"
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              mt: 3,
+              marginLeft: "90px",
+            }}>
+            Submit
+          </Button>
         </form>
       </Box>
     </Box>
