@@ -1,6 +1,6 @@
 import { Route, BrowserRouter, Routes, NavLink,Outlet } from "react-router-dom";
 import "./App.css";
-
+import AddGoal from "./pages/Goal";
 import Dashboard from "./pages/Dashboard.jsx";
 import LoginForm from "./pages/login.jsx";
 import Reports from "./pages/Reports";
@@ -33,6 +33,7 @@ useEffect(()=>{
             <Route   path="/transactions"  element={<Recurring/>} />
             <Route path="/reports" element={Reports} />
             <Route path="/users"  element={<Users/>}/>
+            <Route path="/goals"  element={<AddGoal/>}/>
           </Route>
 
           <Route path="/" exact element={<LoginForm setToken={setToken}/>} />
