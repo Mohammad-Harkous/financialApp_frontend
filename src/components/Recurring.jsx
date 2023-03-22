@@ -8,6 +8,7 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Dialog from "@mui/material/Dialog";
+import { Body } from "./dashboardComponents";
 
 import DialogActions from "@mui/material/DialogActions";
 // import DialogContent from "@mui/material/DialogContent";
@@ -21,6 +22,7 @@ import { Stack } from "@mui/system";
 
 export default function DataTable() {
   var token=sessionStorage.getItem('token')
+  console.log(token)
   // The selectedInfo object is used to store the data of the row that is currently selected in the grid.
   const [selectedInfo, setSelectedInfo] = useState({});
   // The isUpdateMode boolean is used to track whether the user is currently in update mode or not.
@@ -38,7 +40,7 @@ export default function DataTable() {
     title: "",
     description: "",
     amount: "",
-    currency: "",
+    currency: "$",
     type_of_transaction: "",
     start_date: "",
     end_date: "",
@@ -114,15 +116,19 @@ export default function DataTable() {
     start_date: newData.start_date,
     end_date: newData.end_date,
     user_id: newData.user_id,
-    category_id: newData.category_id,
-    D_O_T: newData.D_O_T,
+    currency: "$",
+    category_id: "1",
+    
     
   })
   console.log("data ",data)
 
   const addreccurentTransaction = async () => {
     try {
-      await axios.post(apiURL,data,{headers:{"Content-Type" : "application/json"}},);
+      await axios.post(apiURL,data,{ headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },},);
     
       toast.success("Added Successfully", { autoClose: 2000 });
       fetchallData();
@@ -130,7 +136,7 @@ export default function DataTable() {
         title: "",
         description: "",
         amount: "",
-        currency: "",
+        currency: "$",
         type_of_transaction: "",
         start_date: "",
         end_date: "",
@@ -191,8 +197,8 @@ export default function DataTable() {
           start_date: selectedInfo.start_date,
           end_date: selectedInfo.end_date,
           user_id: selectedInfo.user_id,
-          category_id: selectedInfo.category_id,
-          D_O_T: selectedInfo.D_O_T,
+          category_id: "1",
+          
         }
       );
       console.log("Updated Successfully ", response);
@@ -689,7 +695,7 @@ export default function DataTable() {
     >
     {/* <Box mt={2} display={isOpen ? "block" : "none"}> */}
     <Button  className = "button" variant="outlined" onClick={handleOpen} sx={{mb:'20px'}}>
-    Add Recurrent Transaction
+    New Transaction
     </Button> 
     <Dialog
       open={isOpen}
@@ -704,7 +710,7 @@ export default function DataTable() {
         },
       }}
     >
-      <DialogTitle>Add Recurring Transaction </DialogTitle>
+      <DialogTitle>Add  Transaction </DialogTitle>
       <Grid container spacing={2}>
         <Grid item xs={6}>
           <TextField
