@@ -4,8 +4,8 @@ import {
   Box,
   TextField,
   InputLabel,
-  Select,
-  MenuItem,
+  
+  
 } from "@mui/material";
 import InputAdornment from "@mui/material/InputAdornment";
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
@@ -46,7 +46,7 @@ function MyForm() {
     // Convert start_date and end_date to JSON format
 
     const body = {
-      status,
+      status:'disabled',
       title,
       amount,
       start_date: start_date ? start_date.$d.toJSON() : null,
@@ -75,6 +75,7 @@ function MyForm() {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
+        
         height: "100vh",
         bgcolor: "#304DAF",
       }}>
@@ -83,6 +84,7 @@ function MyForm() {
         sx={{
           display: "flex",
           flexDirection: "column",
+          marginLeft : "20%",
           alignItems: "center",
           backfaceVisibility: "1ss0",
           p: 3,
@@ -96,33 +98,18 @@ function MyForm() {
           <InputLabel
             htmlFor="outlined-adornment-amount"
             sx={{ fontWeight: "bold" }}>
-            Goal
+            Goal Title
           </InputLabel>
           <TextField
             required
             fullWidth
             margin="dense"
-            value={status}
-            onChange={(event) => setStatus(event.target.value)}
-            InputProps={{
-              endAdornment: <InputAdornment position="end">$</InputAdornment>,
-            }}
-          />
-
-          {/* Type input */}
-          <InputLabel id="demo-simple-select-label" sx={{ fontWeight: "bold" }}>
-            Type
-          </InputLabel>
-          <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
             value={title}
             onChange={(event) => setTitle(event.target.value)}
-            fullWidth
-            margin="dense">
-            <MenuItem value={"expenses"}>Expenses</MenuItem>
-            <MenuItem value={"income"}>Income</MenuItem>
-          </Select>
+            
+          />
+
+         
 
           {/* Amount input */}
           <InputLabel
@@ -138,7 +125,7 @@ function MyForm() {
             onChange={(event) => setAmount(event.target.value)}
             InputProps={{
               startAdornment: (
-                <InputAdornment position="start">$</InputAdornment>
+                <InputAdornment position="end">$</InputAdornment>
               ),
             }}
           />
