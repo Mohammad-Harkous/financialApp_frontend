@@ -48,7 +48,7 @@ function DashBoard() {
         console.log(err);
       });
 
-    const checkToken = sessionStorage.getItem("token");
+    
   }, []);
 
   useEffect(() => {
