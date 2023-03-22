@@ -26,6 +26,7 @@ const style = {
 
 
 function BasicModal() {
+  let token =sessionStorage.getItem('token')
   const [open, setOpen] = useState(false);
   const [formData, setFormData] = useState({
     full_name:'',
@@ -76,12 +77,13 @@ function BasicModal() {
     try {
       const response = await axios.post('http://127.0.0.1:8000/api/register', formData,{
         headers:{
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
         }
       });
   
       // handle successful response
-      console.log(response.data)
+      
       notifySucess();
       setFormData({
         full_name:'',
@@ -91,6 +93,9 @@ function BasicModal() {
       });
       
       handleClose();
+      window.location.reload(true)
+
+    
      
     } catch (error) {
       // handle error

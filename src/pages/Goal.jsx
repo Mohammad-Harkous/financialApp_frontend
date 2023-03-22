@@ -77,18 +77,20 @@ function AddGoal() {
         alignItems: "center",
         
         height: "100vh",
-        bgcolor: "#304DAF",
+        bgcolor: "#F8F9FD",
       }}>
       {/* Parent box */}
       <Box
         sx={{
           display: "flex",
           flexDirection: "column",
-          marginLeft : "20%",
+          marginLeft : "12%",
           alignItems: "center",
           backfaceVisibility: "1ss0",
           p: 3,
-          borderRadius: 2,
+          border: "2px solid ",
+          borderRadius:3,
+          
           backgroundColor: "white",
           minWidth: "300px",
           maxWidth: "600px",

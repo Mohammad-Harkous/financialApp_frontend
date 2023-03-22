@@ -11,21 +11,23 @@ import 'react-toastify/dist/ReactToastify.css';
 
 
 const styleBox = {
-  ml:40, 
-  mr:4
+  ml:42, 
+  mr:5,
+  
 };
 
 
 function Users() {
+  let token =sessionStorage.getItem('token')
   const [data, setData] = useState([]);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
   const fetchUsers = async () => {
     try{
-    const result = await axios.get('http://127.0.0.1:8000/api/users');
+    const result = await axios.get('http://127.0.0.1:8000/api/users',{headers: { Authorization: `Bearer ${token}`} });
       setData(result.data);
-     console.log(result.data);
+    
     }catch(error){
       console.log(error);
     }
@@ -82,8 +84,8 @@ function Users() {
   const onDelete = async (id) =>{
 
      try{
-        await axios.delete(`http://127.0.0.1:8000/api/users/${id}`)
-        console.log(`User ${id} has been deleted`);
+        await axios.delete(`http://127.0.0.1:8000/api/users/${id}`,{headers: { Authorization: `Bearer ${token}`} })
+     
         notifySucess();
         fetchUsers();
     }catch (error) {
