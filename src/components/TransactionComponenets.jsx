@@ -32,4 +32,6 @@ padding-bottom: 15px;
 
 export const TableContainer=styled.div`
 width: 100%;
+
+
 `

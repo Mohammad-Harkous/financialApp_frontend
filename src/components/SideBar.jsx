@@ -136,14 +136,19 @@ function sideBar() {
             <ImgS src={Dash} />
             Dashboard
           </StyledLink>
-          <StyledLink to="/transactions">
-            <ImgS src={Trans} />
-            Transactions
-          </StyledLink>
+         
+          <StyledLink to="/recurring">
+          <ImgS src={Trans} />
+          Recurring Transactions
+        </StyledLink>
           <StyledLink to="/reports">
             <ImgS src={Report} />
             Reports
           </StyledLink>
+          <StyledLink to="/transactions">
+          <ImgS src={Trans} />
+          Transactions
+        </StyledLink>
           <StyledLink to="/goals">
             <ImgS src={Goal} />
             Goals
