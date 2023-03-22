@@ -4,7 +4,7 @@ import "./App.css";
 import Dashboard from "./pages/Dashboard.jsx";
 import LoginForm from "./pages/login.jsx";
 import Reports from "./pages/Reports";
-// import Transactions from "./pages/Transactions";
+import DataTable from "./pages/Recurring";
 import Users from "./pages/Users.jsx";
 import SidebarLayout from "./components/SidebarLayout.jsx";
 import NotLoggedin from "./pages/notLoggedin.jsx";
@@ -27,7 +27,7 @@ useEffect(()=>{
         <Routes>
         
         <Route element={token?<SidebarLayout />:<NotLoggedin/>}>
-        <Route   path="/transactions"  />
+        <Route   path="/transactions"  element={DataTable} />
 
             <Route path="/dashboard" element={<Dashboard/> } />
             <Route path="/reports" element={Reports} />
